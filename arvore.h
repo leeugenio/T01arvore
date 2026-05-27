@@ -3,9 +3,11 @@
 
 #include <stdbool.h>
 
+typedef struct Pilha Pilha;
+
 //estrutura do nó da arvore
 typedef struct No{
-    char No[16];             //guarda o operador ou operando
+    char valor[16];             //guarda o operador ou operando
     struct No* esquerdo;     //ponteiro para o filho esquerdo
     struct No* direito;      //Ponteiro para o filho direito         
 } No;
@@ -19,5 +21,6 @@ void imprimirArvore(No* raiz);
 bool operadorBinario(char* token);
 bool operadorUnario(char*token);
 int precedencia(char* token);
+void liberarArvore(No* raiz);
 
 #endif
