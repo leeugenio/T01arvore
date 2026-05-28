@@ -1,3 +1,6 @@
+//Leon Trindade
+//Leticia Eugenio
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

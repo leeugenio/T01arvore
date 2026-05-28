@@ -1,3 +1,6 @@
+//Leon Trindade
+//Leticia Eugenio
+
 #include "arvore.h"
 #include "pilha.h"
 #include <stdlib.h>

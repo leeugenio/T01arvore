@@ -1,3 +1,6 @@
+//Leon Trindade
+//Leticia Eugenio
+
 #ifndef ARVORE_H
 #define ARVORE_H
 

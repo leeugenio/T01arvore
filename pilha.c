@@ -1,3 +1,6 @@
+//Leon Trindade
+//Leticia Eugenio
+
 #include "pilha.h"
 #include <stdlib.h>
 #include <stdio.h>
