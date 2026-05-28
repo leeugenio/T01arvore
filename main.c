@@ -15,7 +15,7 @@ int main() {
 
     char entrada[500];
 
-    printf("=========================================\n");
+    printf("============ LEON E LETICIA ============\n");
     printf("               CALCULADORA\n");
     printf("=========================================\n\n");
 

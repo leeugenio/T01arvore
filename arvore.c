@@ -97,6 +97,12 @@ No* CriarArvore(char* expressaoInfixa) {
                 struct No* abrePar = pop(&pilhaOperadores);
                 free(abrePar);
             }
+            // Se houver uma função antes do parenteses, processa ela
+            if (!pilhaVazia(&pilhaOperadores) &&
+                operadorUnario(pilhaOperadores.topo->noArvore->valor)) {
+
+                processarOperador(&pilhaNos, &pilhaOperadores);
+            }
             i++;
         }
         // Se for uma função ou operador
@@ -114,7 +120,7 @@ No* CriarArvore(char* expressaoInfixa) {
                 while (j >= 0 && isspace(expressaoInfixa[j])) j--; // Ignora espaços
                 // Será unario se for o primeiro caractere ou vier depois de outro operador
                 if (i == 0 || expressaoInfixa[j] == '(' || expressaoInfixa[j] == '+' || expressaoInfixa[j] == '-' ||
-                    expressaoInfixa[j] == '*' || expressaoInfixa[j] == '/' || expressaoInfixa[j] == '^') {
+                    expressaoInfixa[j] == '*' || expressaoInfixa[j] == '/' || expressaoInfixa[j] == '$') {
                     strcpy(tokenOp, "~");
                 } else {
                     strcpy(tokenOp, "-");
@@ -129,8 +135,9 @@ No* CriarArvore(char* expressaoInfixa) {
             }
             // Enquanto o operador do topo da pilha tiver precedencia maior ou igual ao operador atual processamos o operador anterior primeiro
             while (!pilhaVazia(&pilhaOperadores) && 
-                   strcmp(pilhaOperadores.topo->noArvore->valor, "(") != 0 && 
-                   precedencia(pilhaOperadores.topo->noArvore->valor) >= precedencia(tokenOp)) {
+                    strcmp(pilhaOperadores.topo->noArvore->valor, "(") != 0 && 
+                    strcmp(pilhaOperadores.topo->noArvore->valor, "sqrt") != 0 &&
+                    precedencia(pilhaOperadores.topo->noArvore->valor) >= precedencia(tokenOp)) {
                 processarOperador(&pilhaNos, &pilhaOperadores);
             }
             // Coloca o operador atual na pilha
@@ -176,7 +183,7 @@ double calcArvore(No* raiz) {
                     return 0.0;
                 }
                 return valorEsq / valorDir;
-            case '^': return pow(valorEsq, valorDir);
+            case '$': return pow(valorEsq, valorDir);
             case '~': return -valorDir;
         }
     }
@@ -234,7 +241,7 @@ void liberarArvore(No* raiz) {
 bool operadorBinario(char* token) {
     if (strlen(token) == 1) {
         char c = token[0];
-        return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
+        return (c == '+' || c == '-' || c == '*' || c == '/' || c == '$');
     }
     return false;
 }
@@ -256,7 +263,7 @@ int precedencia(char* token) {
         char c = token[0];
         if (c == '+' || c == '-') return 1;
         if (c == '*' || c == '/') return 2;
-        if (c == '^')             return 3;
+        if (c == '$')             return 3;
         if (c == '~')             return 4;
     }
     if (strcmp(token, "sqrt") == 0) {
